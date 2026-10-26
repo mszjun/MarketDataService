@@ -2,10 +2,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-MarketDataService 是从 tengine 交易引擎中抽出的**独立行情服务**。它连接一个或多个 CTP 行情前置，
+MarketDataService 是一个**独立行情服务**。它连接一个或多个 CTP 行情前置，
 订阅全市场期货合约，把每一笔 `OnRtnDepthMarketData` 行情：
 
-- 通过 **TCP 单播** 和 **UDP 组播** 实时转发，报文与交易引擎行情格式**逐字节兼容**；
+- 通过 **TCP 单播** 和 **UDP 组播** 实时转发，报文采用固定的 JSON 格式；
 - 按需写入 **ClickHouse**（HTTP 接口 + `JSONEachRow`）或 **本地 CSV 文件**，也可以只转发不落盘；
 - 在配置的交易时段结束时**自动优雅退出**，适合交给计划任务 / 守护进程按交易日拉起。
 
@@ -40,7 +40,7 @@ MarketDataService 是从 tengine 交易引擎中抽出的**独立行情服务**�
 | 多行情源 | `CTPSources[]` 中每个账号建立独立 `CThostFtdcMdApi`，可分别配置前置、流文件目录和交易所过滤 |
 | 全市场订阅 | 启动时从 openctp dict HTTP 服务拉取全市场期货合约，本地缓存作为离线兜底 |
 | 合约分片 | 同一合约只分配给**第一个**匹配的行情源，避免重复订阅、重复广播、重复入库 |
-| 行情转发 | 单播 TCP 长连接 + 组播 UDP，报文与旧引擎兼容，老客户端无需改动 |
+| 行情转发 | 单播 TCP 长连接 + 组播 UDP，报文格式固定，现有行情客户端可直接接入 |
 | 快照恢复 | 每个合约保留最新报文；行情静默超过阈值后整体重发；慢客户端队列可裁剪 |
 | 双存储后端 | ClickHouse（HTTP）或本地 CSV，均异步批量写入，不阻塞 CTP 回调线程 |
 | 按需存储 | 两个后端都关闭时使用 `NullWriter`，仅转发不落盘 |
@@ -1041,7 +1041,7 @@ clickhouse HTTP ping failed [...]
 - 路径相对 **exe 目录**；
 - 文件名按 `ActionDay`，不是 `TradingDay`。
 
-### 13.7 与旧 tengine 同时运行
+### 13.7 与其它行情服务同时运行
 
 - 不要共用同一个 CTP 行情账号；
 - `FlowPath` 必须分开，否则 CTP 流文件会冲突；

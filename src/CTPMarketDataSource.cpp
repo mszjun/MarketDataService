@@ -17,7 +17,7 @@ namespace mdgw
 {
 	namespace
 	{
-		const char * const TENGINE_USER_PRODUCT_INFO = "tengine_md";
+		const char * const MSZJUN_USER_PRODUCT_INFO = "mszjun_md";
 
 		// CThostFtdcMdApi::Release() is called from the thread that created the
 		// API (calling it elsewhere segfaults); with an unreachable or half-open
@@ -313,7 +313,7 @@ namespace mdgw
 		snprintf(reqUserLogin.UserID, sizeof(reqUserLogin.UserID), "%s", userID_.c_str());
 		snprintf(reqUserLogin.Password, sizeof(reqUserLogin.Password), "%s", cfg_.password.c_str());
 		snprintf(reqUserLogin.UserProductInfo, sizeof(reqUserLogin.UserProductInfo), "%s",
-			TENGINE_USER_PRODUCT_INFO);
+			MSZJUN_USER_PRODUCT_INFO);
 
 		int r = userApi_->ReqUserLogin(&reqUserLogin, 0);
 		if (r != 0)

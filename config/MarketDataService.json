@@ -1,0 +1,58 @@
+{
+    "InstrumentSourceUrl": "http://dict.openctp.cn/instruments?types=futures",
+    "InstrumentCacheFile": "config/instruments_cache.json",
+    "LogFile": "logs/marketdata.log",
+    "LogLevel": 1,
+    "DayExitTime": "15:18",
+    "NightExitTime": "02:35",
+
+    "Unicast": {
+        "Enabled": true,
+        "Address": "0.0.0.0",
+        "Port": 12345,
+        "MaxConnections": 66
+    },
+
+    "Multicast": {
+        "Enabled": true,
+        "Address": "239.0.0.3",
+        "Port": 12345,
+        "Hops": 5
+    },
+
+    "Broadcast": {
+        "Levels": 1,
+        "SnapshotIdleSeconds": 30
+    },
+
+    "ClickHouse": {
+        "Enabled": true,
+        "Host": "127.0.0.1",
+        "Port": 8123,
+        "Database": "market",
+        "Table": "tick",
+        "User": "default",
+        "Password": "",
+        "BatchRows": 1000,
+        "FlushIntervalMs": 1000,
+        "MaxQueuedRows": 200000,
+        "ConnectTimeoutMs": 5000,
+        "ReadTimeoutMs": 30000,
+        "RetrySleepMs": 3000
+    },
+
+    "CTPSources": [
+        {
+            "BrokerID": "9999",
+            "UserID": "",
+            "Password": "",
+            "AppID": "",
+            "AuthCode": "",
+            "FlowPath": "MarketDataFlow/9999_",
+            "MarketDataServerURIs": ["tcp://127.0.0.1:41213"],
+            "ExchangeFilter": [],
+            "SubscribeChunkSize": 300,
+            "LoginRetrySeconds": 15
+        }
+    ]
+}

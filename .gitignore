@@ -1,0 +1,77 @@
+# ---------------------------------------------------------------------------
+# Build output
+# ---------------------------------------------------------------------------
+/build/
+/out/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.ninja
+.ninja_deps
+.ninja_log
+compile_commands.json
+CMakeUserPresets.json
+CTestTestfile.cmake
+Testing/
+
+# Compiled objects / libraries / executables
+*.o
+*.obj
+*.lo
+*.a
+*.lib
+*.exp
+*.exe
+*.dll
+*.so
+*.so.*
+*.dylib
+*.pdb
+*.ilk
+*.idb
+*.map
+
+# ---------------------------------------------------------------------------
+# IDE / editor
+# ---------------------------------------------------------------------------
+.vs/
+.vscode/
+.idea/
+*.sln
+*.slnx
+*.vcxproj
+*.vcxproj.*
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+
+# ---------------------------------------------------------------------------
+# Runtime data (created next to the executable)
+# ---------------------------------------------------------------------------
+/logs/*
+!/logs/.gitkeep
+/MarketDataFlow/
+/marketdata_*/
+*.log
+*.log.*
+startup.log
+
+# Generated instrument cache: fetched at startup, never hand-edited
+/config/instruments_cache.json
+
+# Optional pre-extracted dependencies (CMake prefers these over the archives)
+/third_party/asio/
+/third_party/ctp/
+
+# ---------------------------------------------------------------------------
+# OS / temp files
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+*.tmp
+*.bak
